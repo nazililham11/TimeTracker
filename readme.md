@@ -1,5 +1,5 @@
 ## What is
-The purpose of this script is simply to keep track of the time you spend on your computer, Not only that you can also find out how much time is spent on work, games, social media, learning, etc.
+The purpose of this script is simply to keep track of the time you spend on your computer. Not only track your screen time but you can also find out how much time is spent on work, games, social media, learning, etc, or find out which app you use the most.
 
 This script only focuses on storing data, to analyze the stored data you can use your own notebook/script.
 
@@ -13,7 +13,9 @@ The script are running in background and keep track of what apps are currently o
 
 ## Comparison of data size based on `x` value, in one day
 Assuming the script runs non-stop and uses maximum string size
+
 The size of the data for each item (bytes) : 50 + 8 + 150 = 208 Byte
+
 Total second in one day : 60 * 60 * 24 = 86400 Sec
 
 ```js
