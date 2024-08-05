@@ -7,7 +7,9 @@ from peewee import SqliteDatabase, Model, CharField, DateTimeField, SQL
 
 SAMPLING_DELAY = 10 # Seconds
 
-db = SqliteDatabase('database.db')
+current_db_name: str | None = None
+
+db = SqliteDatabase(None)
 
 class Moment(Model):
     process = CharField(max_length=150)
@@ -39,10 +41,33 @@ def insert_moment():
 def insert_schedule():
     thread = Timer(SAMPLING_DELAY, insert_schedule)
     thread.start()
+    init_database()
     insert_moment()
 
 
-if __name__ == '__main__':
+def current_month():
+    date = datetime.now()
+    return f"{date.year}{date.month:02}"
+
+
+def init_database():
+    global current_db_name
+    db_name = f"data_{current_month()}.db"
+
+    if db_name == current_db_name:
+        return
+
+    if current_db_name is None:
+        print(f"Using database {db_name}")
+    else:
+        print(f"Change database to {db_name}")
+
+    current_db_name = db_name
+
+    db.init(current_db_name)
     db.connect()
     db.create_tables([Moment])
+
+
+if __name__ == '__main__':
     insert_schedule()
